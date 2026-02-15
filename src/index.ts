@@ -1,22 +1,19 @@
 #!/usr/bin/env bun
 
 import { Command } from "commander";
-import pc from "picocolors";
 
-const ASCII_LOGO = `
-  _     _                         _  ___ _
- | |   (_) ___ ___ _ __  ___  ___| |/ (_) |_
- | |   | |/ __/ _ \\ '_ \\/ __|/ _ \\ ' /| | __|
- | |___| | (_|  __/ | | \\__ \\  __/ . \\| | |_
- |_____|_|\\___\\___|_| |_|___/\\___|_|\\_\\_|\\__|
-`;
+import { runCompare } from "@/commands/compare";
+import { runInfo } from "@/commands/info";
+import { runList } from "@/commands/list";
+import { runWizard } from "@/commands/wizard";
+import type { SupportedLanguage } from "@/types/cli";
+import { isSupportedLanguage } from "@/utils/detect-language";
 
-const TAGLINE = "Choose, understand, and add the right license to your project.";
-
-function displayBanner(): void {
-	console.log(pc.cyan(ASCII_LOGO));
-	console.log(pc.dim(TAGLINE));
-	console.log();
+function parseLang(value: string | undefined): SupportedLanguage | undefined {
+	if (value && isSupportedLanguage(value)) {
+		return value;
+	}
+	return undefined;
 }
 
 const program = new Command();
@@ -27,11 +24,41 @@ program
 	.description(
 		"The interactive CLI tool that helps you choose, understand, and add the right license to your project.",
 	)
+	.option("-a, --author <name>", "author name for the license")
+	.option("-y, --year <year>", "copyright year")
+	.option("-o, --output <path>", "output path for the LICENSE file", "./LICENSE")
+	.option("-l, --lang <lang>", "language: en or fr")
+	.action(async (opts): Promise<void> => {
+		await runWizard({
+			author: opts.author,
+			year: opts.year,
+			output: opts.output,
+			lang: parseLang(opts.lang),
+		});
+	});
+
+program
+	.command("list")
+	.description("List all available licenses grouped by category")
 	.action((): void => {
-		displayBanner();
-		console.log(pc.dim(`v${program.version()}`));
-		console.log();
-		console.log("Coming soon...");
+		const opts = program.opts();
+		runList(parseLang(opts.lang));
+	});
+
+program
+	.command("info <license>")
+	.description("Show details about a specific license")
+	.action((license: string): void => {
+		const opts = program.opts();
+		runInfo(license, parseLang(opts.lang));
+	});
+
+program
+	.command("compare <licenseA> <licenseB>")
+	.description("Compare two licenses side by side")
+	.action((licenseA: string, licenseB: string): void => {
+		const opts = program.opts();
+		runCompare(licenseA, licenseB, parseLang(opts.lang));
 	});
 
 program.parse();
