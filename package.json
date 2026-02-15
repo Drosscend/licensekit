@@ -1,34 +1,49 @@
 {
-	"name": "licensekit",
-	"version": "0.1.0",
-	"description": "The interactive CLI tool that helps you choose, understand, and add the right license to your project.",
-	"license": "MIT",
-	"author": "Kevin Veronesi",
-	"type": "module",
-	"module": "src/index.ts",
-	"bin": {
-		"licensekit": "./dist/index.js"
-	},
-	"scripts": {
-		"dev": "bun --watch src/index.ts",
-		"build": "bun build src/index.ts --outdir dist --target bun",
-		"start": "bun src/index.ts",
-		"test": "bun test",
-		"lint": "bunx biome check .",
-		"lint:fix": "bunx biome check --write .",
-		"format": "bunx biome format --write .",
-		"fetch-licenses": "bun scripts/fetch-licenses.ts"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.0",
-		"@types/bun": "latest"
-	},
-	"peerDependencies": {
-		"typescript": "^5"
-	},
-	"dependencies": {
-		"@clack/prompts": "^1.0.1",
-		"commander": "^14.0.3",
-		"picocolors": "^1.1.1"
-	}
+  "name": "@drosscend/licensekit",
+  "version": "0.1.1",
+  "description": "The interactive CLI tool that helps you choose, understand, and add the right license to your project.",
+  "license": "MIT",
+  "author": "Kevin Veronesi",
+  "type": "module",
+  "bin": {
+    "licensekit": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ton-user/licensekit.git"
+  },
+  "keywords": [
+    "license",
+    "cli",
+    "wizard",
+    "open-source",
+    "spdx",
+    "choose"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "start": "bun src/index.ts",
+    "test": "bun test",
+    "lint": "bunx biome check .",
+    "lint:fix": "bunx biome check --write .",
+    "format": "bunx biome format --write .",
+    "fetch-licenses": "bun scripts/fetch-licenses.ts",
+    "prepublishOnly": "bun run build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.0",
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.0.1",
+    "commander": "^14.0.3",
+    "picocolors": "^1.1.1"
+  }
 }

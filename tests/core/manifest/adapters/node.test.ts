@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { NodeManifestAdapter } from "@/core/manifest/adapters/node";
@@ -61,7 +61,7 @@ describe("NodeManifestAdapter.update", () => {
 		const success = await NodeManifestAdapter.update(filePath, "Apache-2.0");
 		expect(success).toBe(true);
 
-		const content = JSON.parse(await Bun.file(filePath).text());
+		const content = JSON.parse(readFileSync(filePath, "utf-8"));
 		expect(content.license).toBe("Apache-2.0");
 	});
 
@@ -78,7 +78,7 @@ describe("NodeManifestAdapter.update", () => {
 
 		await NodeManifestAdapter.update(filePath, "GPL-3.0-only");
 
-		const content = JSON.parse(await Bun.file(filePath).text());
+		const content = JSON.parse(readFileSync(filePath, "utf-8"));
 		expect(content.name).toBe("test");
 		expect(content.version).toBe("1.0.0");
 		expect(content.description).toBe("A test package");
@@ -92,7 +92,7 @@ describe("NodeManifestAdapter.update", () => {
 
 		await NodeManifestAdapter.update(filePath, "ISC");
 
-		const raw = await Bun.file(filePath).text();
+		const raw = readFileSync(filePath, "utf-8");
 		expect(raw).toContain('\t"name"');
 		expect(raw).toContain('\t"license": "ISC"');
 	});

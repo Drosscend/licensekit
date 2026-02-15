@@ -32,7 +32,7 @@ function extractLanguageCode(locale: string | undefined): string | null {
  */
 export function detectLanguage(): SupportedLanguage {
 	for (const key of ENV_KEYS) {
-		const code = extractLanguageCode(Bun.env[key]);
+		const code = extractLanguageCode(process.env[key]);
 
 		if (code !== null && isSupportedLanguage(code)) {
 			return code;

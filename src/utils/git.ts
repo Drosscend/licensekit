@@ -1,3 +1,5 @@
+import { spawnSync } from "node:child_process";
+
 import type { GitUserInfo } from "@/types/cli";
 
 /**
@@ -6,13 +8,15 @@ import type { GitUserInfo } from "@/types/cli";
  */
 function readGitConfig(key: string): string | null {
 	try {
-		const result = Bun.spawnSync(["git", "config", "--global", key]);
+		const result = spawnSync("git", ["config", "--global", key], {
+			encoding: "utf-8",
+		});
 
-		if (result.exitCode !== 0) {
+		if (result.status !== 0) {
 			return null;
 		}
 
-		const output = result.stdout.toString().trim();
+		const output = result.stdout.trim();
 		return output.length > 0 ? output : null;
 	} catch {
 		return null;

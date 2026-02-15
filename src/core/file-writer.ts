@@ -1,3 +1,4 @@
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 /** Writes the license content to the given path. Creates parent directories if needed. */
@@ -5,16 +6,15 @@ export async function writeLicenseFile(content: string, outputPath: string): Pro
 	const dir = dirname(resolve(outputPath));
 
 	if (dir !== ".") {
-		const { mkdirSync } = await import("node:fs");
 		mkdirSync(dir, { recursive: true });
 	}
 
-	await Bun.write(outputPath, content);
+	writeFileSync(outputPath, content, "utf-8");
 }
 
 /** Returns true if a file already exists at the given path. */
 export async function licenseFileExists(outputPath: string): Promise<boolean> {
-	return Bun.file(outputPath).exists();
+	return existsSync(outputPath);
 }
 
 /** Returns the default output path for the LICENSE file. */

@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 import { Command } from "commander";
 
@@ -20,7 +20,7 @@ const program = new Command();
 
 program
 	.name("licensekit")
-	.version("0.1.0")
+	.version("0.1.1")
 	.description(
 		"The interactive CLI tool that helps you choose, understand, and add the right license to your project.",
 	)
