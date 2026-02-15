@@ -2,10 +2,13 @@ import { dirname, resolve } from "node:path";
 
 /** Writes the license content to the given path. Creates parent directories if needed. */
 export async function writeLicenseFile(content: string, outputPath: string): Promise<void> {
-	const { mkdirSync } = await import("node:fs");
-	const dir = dirname(outputPath);
+	const dir = dirname(resolve(outputPath));
 
-	mkdirSync(dir, { recursive: true });
+	if (dir !== ".") {
+		const { mkdirSync } = await import("node:fs");
+		mkdirSync(dir, { recursive: true });
+	}
+
 	await Bun.write(outputPath, content);
 }
 
