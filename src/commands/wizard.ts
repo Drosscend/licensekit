@@ -2,9 +2,10 @@ import * as clack from "@clack/prompts";
 import pc from "picocolors";
 import { getDefaultOutputPath, licenseFileExists, writeLicenseFile } from "@/core/file-writer";
 import { getTopLicenses } from "@/core/license-scorer";
+import { detectManifests, getAdapter } from "@/core/manifest/index";
 import { fillPlaceholders } from "@/core/template-engine";
 import { resolveTagLabel } from "@/data/rules";
-import { t } from "@/i18n/index";
+import { interpolate, t } from "@/i18n/index";
 import type { SupportedLanguage } from "@/types/cli";
 import type { LicenseMetadata } from "@/types/license";
 import type { WizardAnswer } from "@/types/wizard";
@@ -218,6 +219,40 @@ export async function runWizard(options: WizardOptions = {}): Promise<void> {
 		});
 
 		await writeLicenseFile(finalText, outputPath);
+
+		// Manifest detection and update
+		const manifests = await detectManifests(process.cwd());
+
+		for (const manifest of manifests) {
+			const values = {
+				ecosystem: manifest.ecosystem,
+				filePath: manifest.filePath,
+				spdxId: selectedLicense.spdxId,
+			};
+
+			if (manifest.currentLicense === selectedLicense.spdxId) {
+				clack.log.info(interpolate(translations.manifest.alreadySet, values));
+				continue;
+			}
+
+			const shouldUpdate = await clack.confirm({
+				message: interpolate(translations.manifest.promptUpdate, values),
+			});
+			handleCancel(shouldUpdate);
+
+			if (shouldUpdate) {
+				const adapter = getAdapter(manifest.ecosystem);
+				if (adapter) {
+					const success = await adapter.update(manifest.filePath, selectedLicense.spdxId);
+					if (success) {
+						clack.log.success(interpolate(translations.manifest.updated, values));
+					} else {
+						clack.log.error(interpolate(translations.manifest.updateError, values));
+					}
+				}
+			}
+		}
+
 		clack.outro(translations.wizard.done);
 	} catch (error) {
 		clack.log.error(error instanceof Error ? error.message : translations.errors.writeError);

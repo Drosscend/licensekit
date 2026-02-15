@@ -72,6 +72,13 @@ export type TranslationKeys = {
 		trademarkUse: { label: string; description: string };
 		noPatentUse: { label: string; description: string };
 	};
+	manifest: {
+		detected: string;
+		promptUpdate: string;
+		updated: string;
+		alreadySet: string;
+		updateError: string;
+	};
 	errors: {
 		licenseNotFound: string;
 		writeError: string;

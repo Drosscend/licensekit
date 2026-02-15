@@ -119,6 +119,13 @@ export const fr: TranslationKeys = {
 				"Cette licence stipule explicitement qu'elle n'accorde aucun droit sur les brevets des contributeurs.",
 		},
 	},
+	manifest: {
+		detected: "Manifeste {ecosystem} trouve : {filePath}",
+		promptUpdate: "Mettre a jour le champ license dans {filePath} vers {spdxId} ?",
+		updated: "Champ license mis a jour dans {filePath} vers {spdxId}.",
+		alreadySet: "Le champ license dans {filePath} est deja defini sur {spdxId}.",
+		updateError: "Impossible de mettre a jour le champ license dans {filePath}.",
+	},
 	errors: {
 		licenseNotFound: "Licence introuvable. Verifiez l'identifiant et reessayez.",
 		writeError: "Impossible d'ecrire le fichier LICENSE. Verifiez les permissions du fichier.",

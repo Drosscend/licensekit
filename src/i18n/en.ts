@@ -115,6 +115,13 @@ export const en: TranslationKeys = {
 				"This license explicitly states that it does not grant any rights in the patents of contributors.",
 		},
 	},
+	manifest: {
+		detected: "Found {ecosystem} manifest: {filePath}",
+		promptUpdate: "Update the license field in {filePath} to {spdxId}?",
+		updated: "Updated license field in {filePath} to {spdxId}.",
+		alreadySet: "License field in {filePath} is already set to {spdxId}.",
+		updateError: "Failed to update the license field in {filePath}.",
+	},
 	errors: {
 		licenseNotFound: "License not found. Please check the identifier and try again.",
 		writeError: "Failed to write the LICENSE file. Check file permissions.",
