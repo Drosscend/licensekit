@@ -16,7 +16,8 @@
 		"test": "bun test",
 		"lint": "bunx biome check .",
 		"lint:fix": "bunx biome check --write .",
-		"format": "bunx biome format --write ."
+		"format": "bunx biome format --write .",
+		"fetch-licenses": "bun scripts/fetch-licenses.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.0",
