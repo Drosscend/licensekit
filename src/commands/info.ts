@@ -11,6 +11,7 @@ import {
 	formatLimitation,
 	formatPermission,
 	formatSectionTitle,
+	stripHtmlTags,
 } from "@/utils/format";
 import { printLogo } from "@/utils/logo";
 
@@ -31,7 +32,7 @@ export function runInfo(query: string, lang?: SupportedLanguage): void {
 	console.log(pc.bold(license.name) + pc.dim(` (${license.spdxId})`));
 	console.log(formatCategory(license.category));
 	console.log();
-	console.log(pc.dim(license.description));
+	console.log(pc.dim(stripHtmlTags(license.description)));
 	console.log();
 
 	// Permissions

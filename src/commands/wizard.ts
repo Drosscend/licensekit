@@ -15,6 +15,7 @@ import {
 	formatLimitation,
 	formatPermission,
 	formatSectionTitle,
+	stripHtmlTags,
 } from "@/utils/format";
 import { getGitUserName } from "@/utils/git";
 import { printLogo } from "@/utils/logo";
@@ -43,7 +44,7 @@ function formatLicenseDetails(
 	lines.push(`${pc.bold(license.name)} ${pc.dim(`(${license.spdxId})`)}`);
 	lines.push(formatCategory(license.category));
 	lines.push("");
-	lines.push(pc.dim(license.description));
+	lines.push(pc.dim(stripHtmlTags(license.description)));
 	lines.push("");
 
 	if (license.permissions.length > 0) {
@@ -150,7 +151,7 @@ export async function runWizard(options: WizardOptions = {}): Promise<void> {
 			options: recommended.map((l) => ({
 				value: l.spdxId,
 				label: l.name,
-				hint: l.description.slice(0, 80),
+				hint: stripHtmlTags(l.description).slice(0, 80),
 			})),
 		});
 		handleCancel(selectedSpdxId);

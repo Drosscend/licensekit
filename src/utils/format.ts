@@ -38,3 +38,8 @@ export function formatSectionTitle(text: string): string {
 export function formatDim(text: string): string {
 	return pc.dim(text);
 }
+
+/** Strips all HTML tags from a string, keeping only the text content. */
+export function stripHtmlTags(text: string): string {
+	return text.replace(/<[^>]*>/g, "");
+}

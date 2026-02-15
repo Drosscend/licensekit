@@ -7,6 +7,7 @@ import {
 	formatLimitation,
 	formatPermission,
 	formatSectionTitle,
+	stripHtmlTags,
 } from "@/utils/format";
 
 describe("formatPermission", () => {
@@ -53,5 +54,19 @@ describe("formatDim", () => {
 	it("should return a non-empty string containing the input", () => {
 		const result = formatDim("secondary info");
 		expect(result).toContain("secondary info");
+	});
+});
+
+describe("stripHtmlTags", () => {
+	it("should strip anchor tags and keep text", () => {
+		expect(stripHtmlTags('<a href="/test">hello</a>')).toBe("hello");
+	});
+
+	it("should return plain text unchanged", () => {
+		expect(stripHtmlTags("no tags here")).toBe("no tags here");
+	});
+
+	it("should strip multiple different tags", () => {
+		expect(stripHtmlTags("<b>bold</b> and <i>italic</i>")).toBe("bold and italic");
 	});
 });
