@@ -4,7 +4,7 @@
 
 **LicenseKit** is an interactive CLI tool built in TypeScript that helps developers choose, understand, and add open-source licenses to their projects. It combines a guided wizard, detailed license explanations, and seamless LICENSE file generation -- all from the terminal.
 
-The tool only generates a plain text `LICENSE` file. It does not modify `package.json`, generate headers, or produce markdown output.
+The tool generates a plain text `LICENSE` file and can optionally update the `license` field in detected manifests (e.g., `package.json`). It does not generate headers or produce markdown output.
 
 ## Tech Stack
 
@@ -46,18 +46,27 @@ licensekit/
 │   │   ├── license-resolver.ts    # Resolves license by ID/name
 │   │   ├── license-scorer.ts      # Scores licenses based on wizard answers
 │   │   ├── template-engine.ts     # Fills placeholders in license text
-│   │   └── file-writer.ts         # Writes LICENSE file to disk
+│   │   ├── file-writer.ts         # Writes LICENSE file to disk
+│   │   └── manifest/              # Manifest detection and update
+│   │       ├── index.ts           # Public API for manifest operations
+│   │       ├── types.ts           # ManifestAdapter, ManifestDetection types
+│   │       ├── registry.ts        # Adapter registry
+│   │       └── adapters/
+│   │           └── node.ts        # Node.js (package.json) adapter
 │   ├── data/                      # Embedded license data
-│   │   ├── licenses/              # Individual license files (JSON)
+│   │   ├── licenses/              # Individual license files (JSON + index.ts)
 │   │   ├── rules.ts               # Permissions, conditions, limitations definitions
 │   │   └── questions.ts           # Wizard questions and scoring matrix
 │   ├── i18n/                      # Internationalization
+│   │   ├── index.ts               # Translation loader and interpolation
+│   │   ├── keys.ts                # TranslationKeys type definition
 │   │   ├── en.ts                  # English translations
 │   │   └── fr.ts                  # French translations
 │   ├── utils/                     # Utility functions
 │   │   ├── git.ts                 # Read git config (user.name, user.email)
 │   │   ├── detect-language.ts     # Auto-detect system locale
-│   │   └── format.ts              # Terminal formatting helpers
+│   │   ├── format.ts              # Terminal formatting helpers
+│   │   └── logo.ts               # ASCII logo renderer
 │   └── types/                     # TypeScript type definitions
 │       ├── license.ts             # License, LicenseMetadata, LicenseRule types
 │       ├── wizard.ts              # WizardAnswer, WizardQuestion types
@@ -126,14 +135,14 @@ The CLI follows a **command pattern**:
 
 ## Important Notes
 
-- The tool only outputs a plain text `LICENSE` file -- no markdown, no package.json modification, no source file headers
+- The tool outputs a plain text `LICENSE` file and optionally updates manifest files (e.g., `package.json` license field) -- no markdown, no source file headers
 - The tool must work **offline** for bundled licenses (no network required for common licenses)
 - Network requests (GitHub API) are only used for fetching less common licenses or when the user explicitly requests it
 - The wizard scoring system assigns weights to user answers and ranks licenses by total score
 - License texts contain placeholders like `[year]`, `[fullname]` that must be replaced
 - The tool should detect and respect existing `.gitconfig` for author name/email
 - All terminal output uses `picocolors` for coloring -- never use ANSI escape codes directly
-- The shebang line `#!/usr/bin/env bun` must be present in the entry point
+- The shebang line `#!/usr/bin/env node` must be present in the entry point
 - No emojis anywhere: not in CLI output, not in code, not in comments
 
 ## Build & Run Commands
@@ -146,7 +155,7 @@ bun install
 bun --watch src/index.ts
 
 # Build
-bun build src/index.ts --outdir dist --target bun
+bun build src/index.ts --outdir dist --target node
 
 # Run locally
 bun src/index.ts

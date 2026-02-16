@@ -29,6 +29,7 @@ LicenseKit goes beyond existing tools by providing clear explanations, a guided 
 - Automatically creates a `LICENSE` file (plain text) in your project root
 - Interactive prompts to fill in placeholders (author name, year)
 - Auto-detection of author name from Git config (`user.name`) and current year
+- Detects manifest files (e.g., `package.json`) and offers to update the `license` field
 - Support for custom output path (`--output`, `-o`)
 - Confirmation prompt before overwriting an existing LICENSE file
 
@@ -108,7 +109,7 @@ o  Author name:
 |  Kevin Veronesi (from git config)
 |
 o  Year:
-|  2025
+|  2026
 |
 +  Done: LICENSE file created successfully!
 ```
@@ -121,10 +122,10 @@ LicenseKit supports the most commonly used open-source licenses, sourced from th
 |---------|-----------------|------|
 | MIT License | `MIT` | Permissive |
 | Apache License 2.0 | `Apache-2.0` | Permissive |
-| GNU GPLv3 | `GPL-3.0-only` | Copyleft |
-| GNU GPLv2 | `GPL-2.0-only` | Copyleft |
-| GNU AGPLv3 | `AGPL-3.0-only` | Copyleft |
-| GNU LGPLv3 | `LGPL-3.0-only` | Weak Copyleft |
+| GNU GPLv3 | `GPL-3.0` | Copyleft |
+| GNU GPLv2 | `GPL-2.0` | Copyleft |
+| GNU AGPLv3 | `AGPL-3.0` | Copyleft |
+| GNU LGPLv3 | `LGPL-3.0` | Weak Copyleft |
 | Mozilla Public License 2.0 | `MPL-2.0` | Weak Copyleft |
 | BSD 2-Clause | `BSD-2-Clause` | Permissive |
 | BSD 3-Clause | `BSD-3-Clause` | Permissive |
