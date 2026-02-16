@@ -11,9 +11,13 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://github.com/Drosscend/licensekit#readme",
+  "bugs": {
+    "url": "https://github.com/Drosscend/licensekit/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ton-user/licensekit.git"
+    "url": "git+https://github.com/Drosscend/licensekit.git"
   },
   "keywords": [
     "license",

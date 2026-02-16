@@ -41,11 +41,15 @@ LicenseKit goes beyond existing tools by providing clear explanations, a guided 
 ## Installation
 
 ```bash
-# Run directly with bunx (no install needed)
-bunx licensekit
+# Run directly with npx (no install needed)
+npx @drosscend/licensekit
+
+# Or with bunx
+bunx @drosscend/licensekit
 
 # Or install globally
-bun add -g licensekit
+npm install -g @drosscend/licensekit
+bun add -g @drosscend/licensekit
 ```
 
 ## Usage
