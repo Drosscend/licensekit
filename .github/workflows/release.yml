@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get previous tag
+        id: prev_tag
+        run: |
+          PREV=$(git tag --sort=-v:refname | sed -n '2p')
+          echo "tag=${PREV}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          if [ -n "${{ steps.prev_tag.outputs.tag }}" ]; then
+            LOGS=$(git log "${{ steps.prev_tag.outputs.tag }}".."${{ github.ref_name }}" --pretty=format:"- %s (%h)" --no-merges)
+          else
+            LOGS=$(git log --pretty=format:"- %s (%h)" --no-merges)
+          fi
+          {
+            echo "changes<<EOF"
+            echo "$LOGS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          body: |
+            ## Changes
+
+            ${{ steps.changelog.outputs.changes }}
+
+            ## Install
+
+            ```bash
+            npx @drosscend/licensekit
+            ```
+          generate_release_notes: false

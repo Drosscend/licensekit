@@ -1,6 +1,6 @@
 {
   "name": "@drosscend/licensekit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The interactive CLI tool that helps you choose, understand, and add the right license to your project.",
   "license": "MIT",
   "author": "Kevin Veronesi",
