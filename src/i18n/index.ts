@@ -16,6 +16,6 @@ export const t: typeof getTranslations = getTranslations;
 /** Replaces {key} placeholders in a template string with values from the given record. */
 export function interpolate(template: string, values: Record<string, string>): string {
 	return template.replace(/\{(\w+)\}/g, (match, key: string) => {
-		return key in values ? values[key] : match;
+		return key in values ? (values[key] ?? match) : match;
 	});
 }

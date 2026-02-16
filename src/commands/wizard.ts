@@ -142,6 +142,7 @@ export async function runWizard(options: WizardOptions = {}): Promise<void> {
 
 		for (let i = 0; i < recommended.length; i++) {
 			const license = recommended[i];
+			if (!license) continue;
 			const prefix = i === 0 ? `${translations.wizard.results.recommended}` : "";
 			clack.note(formatLicenseDetails(license, translations), prefix);
 		}
@@ -186,7 +187,7 @@ export async function runWizard(options: WizardOptions = {}): Promise<void> {
 				message: translations.wizard.year.question,
 				initialValue: currentYear,
 				validate(value) {
-					if (!/^\d{4}$/.test(value)) {
+					if (!value || !/^\d{4}$/.test(value)) {
 						return "Year must be a 4-digit number.";
 					}
 				},

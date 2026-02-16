@@ -6,7 +6,7 @@ import type { ManifestAdapter, ManifestDetection } from "@/core/manifest/types";
 /** Detects the indentation style used in a JSON string. */
 function detectIndentation(raw: string): string {
 	const match = raw.match(/^(\t| +)/m);
-	return match ? match[1] : "  ";
+	return match?.[1] ?? "  ";
 }
 
 /** Manifest adapter for Node.js projects (package.json). */

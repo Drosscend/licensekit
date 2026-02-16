@@ -24,8 +24,9 @@ export function scoreLicenses(answers: WizardAnswer): LicenseScore[] {
 		}
 
 		for (const modifier of modifiers) {
-			if (scores[modifier.spdxId] !== undefined) {
-				scores[modifier.spdxId] += modifier.points;
+			const current = scores[modifier.spdxId];
+			if (current !== undefined) {
+				scores[modifier.spdxId] = current + modifier.points;
 			}
 		}
 	}

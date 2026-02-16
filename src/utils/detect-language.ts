@@ -22,7 +22,7 @@ function extractLanguageCode(locale: string | undefined): string | null {
 	}
 
 	const match = locale.match(/^([a-z]{2})/i);
-	return match ? match[1].toLowerCase() : null;
+	return match?.[1]?.toLowerCase() ?? null;
 }
 
 /**
