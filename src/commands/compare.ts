@@ -1,7 +1,13 @@
 import pc from "picocolors";
 
 import { resolveLicense } from "@/core/license-resolver";
-import { buildRules, CONDITION_TAGS, LIMITATION_TAGS, PERMISSION_TAGS } from "@/data/rules";
+import {
+	buildRules,
+	CONDITION_TAGS,
+	LIMITATION_TAGS,
+	PERMISSION_TAGS,
+	resolveTagKey,
+} from "@/data/rules";
 import { t } from "@/i18n/index";
 import type { SupportedLanguage } from "@/types/cli";
 import type { LicenseMetadata } from "@/types/license";
@@ -14,7 +20,8 @@ function hasTag(
 	tag: string,
 	kind: "permissions" | "conditions" | "limitations",
 ): boolean {
-	return license[kind].includes(tag);
+	const target = resolveTagKey(tag);
+	return license[kind].some((owned) => resolveTagKey(owned) === target);
 }
 
 function compareRow(label: string, aHas: boolean, bHas: boolean, marker: string): string {

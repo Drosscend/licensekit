@@ -75,6 +75,15 @@ export function buildRules(translations: TranslationKeys): LicenseRuleSet {
 	};
 }
 
+/**
+ * Normalizes a tag to the i18n key it maps to, so that tags coming from the
+ * GitHub API (`liability`, `warranty`, ...) match the canonical ones declared
+ * above (`no-liability`, `no-warranty`, ...). Returns the raw tag when unknown.
+ */
+export function resolveTagKey(tag: string): string {
+	return TAG_TO_I18N_KEY[tag] ?? tag;
+}
+
 /** Resolves a tag (including API aliases) to its translated label. Returns the raw tag if unknown. */
 export function resolveTagLabel(tag: string, translations: TranslationKeys): string {
 	const key = TAG_TO_I18N_KEY[tag];
