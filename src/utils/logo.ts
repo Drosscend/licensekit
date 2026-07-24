@@ -2,6 +2,7 @@ import pc from "picocolors";
 
 import { t } from "@/i18n/index";
 import type { SupportedLanguage } from "@/types/cli";
+import { VERSION } from "@/version";
 
 /** ASCII art logo for the CLI banner. */
 export const LOGO = `
@@ -17,6 +18,6 @@ export function printLogo(lang: SupportedLanguage): void {
 	const translations = t(lang);
 	console.log(pc.cyan(LOGO));
 	console.log(pc.dim(translations.cli.tagline));
-	console.log(pc.dim(`v0.1.0`));
+	console.log(pc.dim(`v${VERSION}`));
 	console.log();
 }

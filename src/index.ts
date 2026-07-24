@@ -8,6 +8,7 @@ import { runList } from "@/commands/list";
 import { runWizard } from "@/commands/wizard";
 import type { SupportedLanguage } from "@/types/cli";
 import { isSupportedLanguage } from "@/utils/detect-language";
+import { VERSION } from "@/version";
 
 function parseLang(value: string | undefined): SupportedLanguage | undefined {
 	if (value && isSupportedLanguage(value)) {
@@ -20,7 +21,7 @@ const program = new Command();
 
 program
 	.name("licensekit")
-	.version("0.1.1")
+	.version(VERSION)
 	.description(
 		"The interactive CLI tool that helps you choose, understand, and add the right license to your project.",
 	)
