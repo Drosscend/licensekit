@@ -191,11 +191,7 @@ After every set of modifications, **Claude must perform the release steps below*
    - `minor` (0.X.0) -- new features, non-breaking enhancements
    - `major` (X.0.0) -- breaking changes (API, CLI flags, output format)
 3. **Bump the version** in `package.json` (update the `"version"` field).
-4. **Commit all changes** (code + version bump) in a single conventional commit:
-   ```
-   <type>(<scope>): <description>
-   ```
-   Examples: `fix(core): handle undefined in license scorer`, `feat(wizard): add license comparison step`.
+4. **Commit all changes** (code + version bump) in a single conventional commit.
 5. **Create an annotated git tag** matching the new version:
    ```bash
    git tag -a v<version> -m "v<version>"
