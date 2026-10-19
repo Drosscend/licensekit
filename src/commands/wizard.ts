@@ -51,21 +51,21 @@ function formatLicenseDetails(
 	if (license.permissions.length > 0) {
 		lines.push(formatSectionTitle(translations.license.permissions));
 		for (const tag of license.permissions) {
-			lines.push(formatPermission(resolveTagLabel(tag, translations)));
+			lines.push(formatPermission(resolveTagLabel(tag, "permissions", translations)));
 		}
 	}
 
 	if (license.conditions.length > 0) {
 		lines.push(formatSectionTitle(translations.license.conditions));
 		for (const tag of license.conditions) {
-			lines.push(formatCondition(resolveTagLabel(tag, translations)));
+			lines.push(formatCondition(resolveTagLabel(tag, "conditions", translations)));
 		}
 	}
 
 	if (license.limitations.length > 0) {
 		lines.push(formatSectionTitle(translations.license.limitations));
 		for (const tag of license.limitations) {
-			lines.push(formatLimitation(resolveTagLabel(tag, translations)));
+			lines.push(formatLimitation(resolveTagLabel(tag, "limitations", translations)));
 		}
 	}
 

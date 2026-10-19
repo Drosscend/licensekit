@@ -1,5 +1,5 @@
 import type { TranslationKeys } from "@/i18n/keys";
-import type { LicenseRule, LicenseRuleSet } from "@/types/license";
+import type { LicenseRule, LicenseRuleSet, RuleKind } from "@/types/license";
 
 /** All known permission tags. */
 export const PERMISSION_TAGS = [
@@ -55,6 +55,19 @@ const TAG_TO_I18N_KEY: Record<string, keyof TranslationKeys["rules"]> = {
 	"no-patent-use": "noPatentUse",
 };
 
+// The GitHub Licenses API lists `patent-use` under limitations too, where it
+// means the license grants no patent rights.
+const LIMITATION_TAG_TO_I18N_KEY: Record<string, keyof TranslationKeys["rules"]> = {
+	"patent-use": "noPatentUse",
+};
+
+function i18nKeyOf(tag: string, kind: RuleKind): keyof TranslationKeys["rules"] | undefined {
+	if (kind === "limitations") {
+		return LIMITATION_TAG_TO_I18N_KEY[tag] ?? TAG_TO_I18N_KEY[tag];
+	}
+	return TAG_TO_I18N_KEY[tag];
+}
+
 function buildRulesFromTags(tags: readonly string[], translations: TranslationKeys): LicenseRule[] {
 	return tags.map((tag) => {
 		const key = TAG_TO_I18N_KEY[tag];
@@ -76,17 +89,25 @@ export function buildRules(translations: TranslationKeys): LicenseRuleSet {
 }
 
 /**
- * Normalizes a tag to the i18n key it maps to, so that tags coming from the
- * GitHub API (`liability`, `warranty`, ...) match the canonical ones declared
- * above (`no-liability`, `no-warranty`, ...). Returns the raw tag when unknown.
+ * Normalizes a tag of the given kind to the i18n key it maps to, so that tags
+ * coming from the GitHub API (`liability`, `warranty`, ...) match the canonical
+ * ones declared above (`no-liability`, `no-warranty`, ...). Returns the raw tag
+ * when unknown.
  */
-export function resolveTagKey(tag: string): string {
-	return TAG_TO_I18N_KEY[tag] ?? tag;
+export function resolveTagKey(tag: string, kind: RuleKind): string {
+	return i18nKeyOf(tag, kind) ?? tag;
 }
 
-/** Resolves a tag (including API aliases) to its translated label. Returns the raw tag if unknown. */
-export function resolveTagLabel(tag: string, translations: TranslationKeys): string {
-	const key = TAG_TO_I18N_KEY[tag];
+/**
+ * Resolves a tag of the given kind (including API aliases) to its translated
+ * label. Returns the raw tag if unknown.
+ */
+export function resolveTagLabel(
+	tag: string,
+	kind: RuleKind,
+	translations: TranslationKeys,
+): string {
+	const key = i18nKeyOf(tag, kind);
 	if (!key) {
 		return tag;
 	}

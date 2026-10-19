@@ -10,18 +10,14 @@ import {
 } from "@/data/rules";
 import { t } from "@/i18n/index";
 import type { SupportedLanguage } from "@/types/cli";
-import type { LicenseMetadata } from "@/types/license";
+import type { LicenseMetadata, RuleKind } from "@/types/license";
 import { detectLanguage } from "@/utils/detect-language";
 import { formatSectionTitle } from "@/utils/format";
 import { printLogo } from "@/utils/logo";
 
-function hasTag(
-	license: LicenseMetadata,
-	tag: string,
-	kind: "permissions" | "conditions" | "limitations",
-): boolean {
-	const target = resolveTagKey(tag);
-	return license[kind].some((owned) => resolveTagKey(owned) === target);
+function hasTag(license: LicenseMetadata, tag: string, kind: RuleKind): boolean {
+	const target = resolveTagKey(tag, kind);
+	return license[kind].some((owned) => resolveTagKey(owned, kind) === target);
 }
 
 function compareRow(label: string, aHas: boolean, bHas: boolean, marker: string): string {

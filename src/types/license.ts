@@ -12,6 +12,9 @@ export type LicenseRuleSet = {
 	limitations: LicenseRule[];
 };
 
+/** Which of a license's three rule lists a tag comes from. */
+export type RuleKind = keyof LicenseRuleSet;
+
 /** Full license metadata including text and rules. */
 export type LicenseMetadata = {
 	spdxId: string;

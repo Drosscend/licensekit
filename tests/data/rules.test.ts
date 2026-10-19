@@ -1,7 +1,15 @@
 import { describe, expect, it } from "bun:test";
 
-import { buildRules, CONDITION_TAGS, LIMITATION_TAGS, PERMISSION_TAGS } from "@/data/rules";
+import { LICENSES } from "@/data/licenses/index";
+import {
+	buildRules,
+	CONDITION_TAGS,
+	LIMITATION_TAGS,
+	PERMISSION_TAGS,
+	resolveTagKey,
+} from "@/data/rules";
 import { getTranslations } from "@/i18n/index";
+import type { RuleKind } from "@/types/license";
 
 describe("rule tags", () => {
 	it("should include commercial-use in PERMISSION_TAGS", () => {
@@ -44,6 +52,35 @@ describe("buildRules", () => {
 			expect(rule.tag.length).toBeGreaterThan(0);
 			expect(rule.label.length).toBeGreaterThan(0);
 			expect(rule.description.length).toBeGreaterThan(0);
+		}
+	});
+});
+
+describe("resolveTagKey", () => {
+	it("should resolve the patent-use limitation to the no-patent-use rule", () => {
+		expect(resolveTagKey("patent-use", "limitations")).toBe(
+			resolveTagKey("no-patent-use", "limitations"),
+		);
+	});
+
+	it("should keep the patent-use permission as a permission", () => {
+		expect(resolveTagKey("patent-use", "permissions")).toBe("patentUse");
+	});
+
+	it("should resolve every bundled license tag to a rule of its own kind", () => {
+		const canonicalTags: Record<RuleKind, readonly string[]> = {
+			permissions: PERMISSION_TAGS,
+			conditions: CONDITION_TAGS,
+			limitations: LIMITATION_TAGS,
+		};
+
+		for (const kind of Object.keys(canonicalTags) as RuleKind[]) {
+			const knownKeys = canonicalTags[kind].map((tag) => resolveTagKey(tag, kind));
+			for (const license of LICENSES) {
+				for (const tag of license[kind]) {
+					expect(knownKeys).toContain(resolveTagKey(tag, kind));
+				}
+			}
 		}
 	});
 });

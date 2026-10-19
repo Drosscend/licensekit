@@ -38,7 +38,7 @@ export function runInfo(query: string, lang?: SupportedLanguage): void {
 	// Permissions
 	console.log(formatSectionTitle(translations.license.permissions));
 	for (const tag of license.permissions) {
-		console.log(formatPermission(resolveTagLabel(tag, translations)));
+		console.log(formatPermission(resolveTagLabel(tag, "permissions", translations)));
 	}
 	console.log();
 
@@ -48,7 +48,7 @@ export function runInfo(query: string, lang?: SupportedLanguage): void {
 		console.log(pc.dim("  (none)"));
 	} else {
 		for (const tag of license.conditions) {
-			console.log(formatCondition(resolveTagLabel(tag, translations)));
+			console.log(formatCondition(resolveTagLabel(tag, "conditions", translations)));
 		}
 	}
 	console.log();
@@ -56,6 +56,6 @@ export function runInfo(query: string, lang?: SupportedLanguage): void {
 	// Limitations
 	console.log(formatSectionTitle(translations.license.limitations));
 	for (const tag of license.limitations) {
-		console.log(formatLimitation(resolveTagLabel(tag, translations)));
+		console.log(formatLimitation(resolveTagLabel(tag, "limitations", translations)));
 	}
 }
