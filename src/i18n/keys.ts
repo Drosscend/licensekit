@@ -65,6 +65,7 @@ export type TranslationKeys = {
 		privateUse: { label: string; description: string };
 		includeCopyright: { label: string; description: string };
 		documentChanges: { label: string; description: string };
+		discloseSource: { label: string; description: string };
 		sameLicense: { label: string; description: string };
 		networkUseIsDistribution: { label: string; description: string };
 		noLiability: { label: string; description: string };

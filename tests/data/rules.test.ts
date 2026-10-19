@@ -67,6 +67,15 @@ describe("resolveTagKey", () => {
 		expect(resolveTagKey("patent-use", "permissions")).toBe("patentUse");
 	});
 
+	it("should resolve two tags of one bundled license to two different rules", () => {
+		for (const license of LICENSES) {
+			for (const kind of ["permissions", "conditions", "limitations"] as const) {
+				const keys = license[kind].map((tag) => resolveTagKey(tag, kind));
+				expect(new Set(keys).size).toBe(keys.length);
+			}
+		}
+	});
+
 	it("should resolve every bundled license tag to a rule of its own kind", () => {
 		const canonicalTags: Record<RuleKind, readonly string[]> = {
 			permissions: PERMISSION_TAGS,

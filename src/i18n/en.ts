@@ -87,6 +87,10 @@ export const en: TranslationKeys = {
 			label: "State changes",
 			description: "Changes made to the code must be documented.",
 		},
+		discloseSource: {
+			label: "Disclose source",
+			description: "Source code must be made available when the software is distributed.",
+		},
 		sameLicense: {
 			label: "Same license",
 			description:

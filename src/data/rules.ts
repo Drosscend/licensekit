@@ -14,6 +14,7 @@ export const PERMISSION_TAGS = [
 export const CONDITION_TAGS = [
 	"include-copyright",
 	"document-changes",
+	"disclose-source",
 	"same-license",
 	"network-use-is-distribution",
 ] as const;
@@ -44,7 +45,7 @@ const TAG_TO_I18N_KEY: Record<string, keyof TranslationKeys["rules"]> = {
 	"same-license": "sameLicense",
 	"same-license--file": "sameLicense",
 	"same-license--library": "sameLicense",
-	"disclose-source": "sameLicense",
+	"disclose-source": "discloseSource",
 	"network-use-is-distribution": "networkUseIsDistribution",
 	"network-use-disclose": "networkUseIsDistribution",
 	"no-liability": "noLiability",

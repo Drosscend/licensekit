@@ -3,7 +3,7 @@ import type { TranslationKeys } from "@/i18n/keys";
 export const fr: TranslationKeys = {
 	cli: {
 		title: "LicenseKit",
-		tagline: "Choisissez, comprenez et ajoutez la bonne licence a votre projet.",
+		tagline: "Choisissez, comprenez et ajoutez la bonne licence à votre projet.",
 		version: "Version",
 	},
 	wizard: {
@@ -12,7 +12,7 @@ export const fr: TranslationKeys = {
 			library: "Une librairie ou un framework",
 			personal: "Un projet personnel ou hobby",
 			commercial: "Un produit commercial",
-			documentation: "De la documentation ou du contenu creatif",
+			documentation: "De la documentation ou du contenu créatif",
 		},
 		commercialUse: {
 			question: "Souhaitez-vous autoriser l'utilisation commerciale de votre code ?",
@@ -20,33 +20,33 @@ export const fr: TranslationKeys = {
 			no: "Non, restreindre l'utilisation commerciale",
 		},
 		copyleft: {
-			question: "Voulez-vous obliger les travaux derives a utiliser la meme licence ?",
+			question: "Voulez-vous obliger les travaux dérivés à utiliser la même licence ?",
 			none: "Non, les laisser utiliser n'importe quelle licence (permissive)",
-			strong: "Oui, tous les derives doivent utiliser la meme licence (copyleft fort)",
-			weak: "Seules les modifications de mes fichiers doivent garder la meme licence (copyleft faible)",
+			strong: "Oui, tous les dérivés doivent utiliser la même licence (copyleft fort)",
+			weak: "Seules les modifications de mes fichiers doivent garder la même licence (copyleft faible)",
 		},
 		patentProtection: {
 			question:
 				"Souhaitez-vous une protection explicite des brevets pour les contributeurs et utilisateurs ?",
 			yes: "Oui, inclure une concession de brevet",
-			no: "Non, la protection des brevets n'est pas necessaire",
+			no: "Non, la protection des brevets n'est pas nécessaire",
 		},
 		results: {
-			title: "Licences recommandees",
+			title: "Licences recommandées",
 			recommended: "Meilleure correspondance",
-			select: "Selectionnez une licence a appliquer",
+			select: "Sélectionnez une licence à appliquer",
 		},
 		author: {
 			question: "Nom de l'auteur pour la licence",
-			detected: "(detecte depuis la configuration git)",
+			detected: "(détecté depuis la configuration git)",
 		},
 		year: {
-			question: "Annee de copyright",
+			question: "Année de copyright",
 		},
 		confirm: {
-			overwrite: "Un fichier LICENSE existe deja. Le remplacer ?",
+			overwrite: "Un fichier LICENSE existe déjà. Le remplacer ?",
 		},
-		done: "Fichier LICENSE cree avec succes.",
+		done: "Fichier LICENSE créé avec succès.",
 	},
 	license: {
 		permissions: "Permissions",
@@ -62,15 +62,15 @@ export const fr: TranslationKeys = {
 	rules: {
 		commercialUse: {
 			label: "Utilisation commerciale",
-			description: "Ce logiciel peut etre utilise a des fins commerciales.",
+			description: "Ce logiciel peut être utilisé à des fins commerciales.",
 		},
 		modifications: {
 			label: "Modifications",
-			description: "Ce logiciel peut etre modifie.",
+			description: "Ce logiciel peut être modifié.",
 		},
 		distribution: {
 			label: "Distribution",
-			description: "Ce logiciel peut etre distribue.",
+			description: "Ce logiciel peut être distribué.",
 		},
 		patentUse: {
 			label: "Utilisation de brevets",
@@ -78,31 +78,36 @@ export const fr: TranslationKeys = {
 				"Cette licence accorde explicitement des droits de brevet de la part des contributeurs.",
 		},
 		privateUse: {
-			label: "Utilisation privee",
-			description: "Ce logiciel peut etre utilise et modifie en prive.",
+			label: "Utilisation privée",
+			description: "Ce logiciel peut être utilisé et modifié en privé.",
 		},
 		includeCopyright: {
 			label: "Avis de licence et de copyright",
 			description:
-				"Une copie de la licence et de l'avis de copyright doit etre incluse avec le logiciel.",
+				"Une copie de la licence et de l'avis de copyright doit être incluse avec le logiciel.",
 		},
 		documentChanges: {
 			label: "Documenter les modifications",
-			description: "Les modifications apportees au code doivent etre documentees.",
+			description: "Les modifications apportées au code doivent être documentées.",
+		},
+		discloseSource: {
+			label: "Publier le code source",
+			description:
+				"Le code source doit être mis à disposition lors de la distribution du logiciel.",
 		},
 		sameLicense: {
-			label: "Meme licence",
+			label: "Même licence",
 			description:
-				"Les modifications doivent etre publiees sous la meme licence lors de la distribution du logiciel.",
+				"Les modifications doivent être publiées sous la même licence lors de la distribution du logiciel.",
 		},
 		networkUseIsDistribution: {
-			label: "Utilisation reseau = distribution",
+			label: "Utilisation réseau = distribution",
 			description:
-				"Les utilisateurs qui interagissent avec le logiciel via le reseau ont le droit de recevoir une copie du code source.",
+				"Les utilisateurs qui interagissent avec le logiciel via le réseau ont le droit de recevoir une copie du code source.",
 		},
 		noLiability: {
-			label: "Limitation de responsabilite",
-			description: "Cette licence inclut une limitation de responsabilite.",
+			label: "Limitation de responsabilité",
+			description: "Cette licence inclut une limitation de responsabilité.",
 		},
 		noWarranty: {
 			label: "Aucune garantie",
@@ -120,16 +125,16 @@ export const fr: TranslationKeys = {
 		},
 	},
 	manifest: {
-		detected: "Manifeste {ecosystem} trouve : {filePath}",
-		promptUpdate: "Mettre a jour le champ license dans {filePath} vers {spdxId} ?",
-		updated: "Champ license mis a jour dans {filePath} vers {spdxId}.",
-		alreadySet: "Le champ license dans {filePath} est deja defini sur {spdxId}.",
-		updateError: "Impossible de mettre a jour le champ license dans {filePath}.",
+		detected: "Manifeste {ecosystem} trouvé : {filePath}",
+		promptUpdate: "Mettre à jour le champ license dans {filePath} vers {spdxId} ?",
+		updated: "Champ license mis à jour dans {filePath} vers {spdxId}.",
+		alreadySet: "Le champ license dans {filePath} est déjà défini sur {spdxId}.",
+		updateError: "Impossible de mettre à jour le champ license dans {filePath}.",
 	},
 	errors: {
-		licenseNotFound: "Licence introuvable. Verifiez l'identifiant et reessayez.",
-		writeError: "Impossible d'ecrire le fichier LICENSE. Verifiez les permissions du fichier.",
+		licenseNotFound: "Licence introuvable. Vérifiez l'identifiant et réessayez.",
+		writeError: "Impossible d'écrire le fichier LICENSE. Vérifiez les permissions du fichier.",
 		networkError:
-			"Impossible de recuperer les donnees de licence. Verifiez votre connexion internet.",
+			"Impossible de récupérer les données de licence. Vérifiez votre connexion internet.",
 	},
 };
